@@ -1,0 +1,158 @@
+openapi: 3.0.0
+info:
+  title: Wallet Exchange Rate Service - OpenAPI 3.0
+  description: |
+    The Wallet Exchange Rate Service is a microservice responsible for providing exchange rates between currencies. The service integrates with the public ExchangeRate API, which supplies this data.
+  contact:
+    email: diego.lopes.2402@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: http://localhost:5003
+paths:
+  /v1/exchange-rates:
+    get:
+      summary: Get exchange rates from USD to all other currencies
+      responses:
+        "200":
+          description: Get exchange rates from USD
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetExchangeRatesOutput"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorBadRequest"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorInternalServer"
+      tags:
+        - exchange-rates
+  /v1/convert:
+    post:
+      summary: Convert an amount from one currency to another
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExchangeRateConvertInput"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExchangeRateConvertOutput"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorBadRequest"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorInternalServer"
+      tags:
+        - exchange-rates
+components:
+  schemas:
+    GetExchangeRatesOutput:
+      type: object
+      properties:
+        source_currency:
+          type: string
+          description: The source currency code
+        rates:
+          type: object
+          additionalProperties:
+            type: number
+      example:
+        source_currency: "BRL"
+        rates:
+          BRL: 1
+          USD: 0.79
+    ExchangeRateConvertOutput:
+      type: object
+      properties:
+        converted_value:
+          type: number
+          description: The converted amount in the target currency
+        source_value:
+          type: number
+          description: The original amount in the source currency
+        source_currency:
+          type: string
+          description: The source currency code in ISO 4217 format
+        target_currency:
+          type: string
+          description: The target currency code in ISO 4217 format
+      example:
+        source_currency: "BRL"
+        target_currency: "USD"
+        source_value: 100
+        converted_value: 80
+    ExchangeRateConvertInput:
+      type: object
+      properties:
+        source_currency:
+          type: string
+          description: The source currency code
+        target_currency:
+          type: string
+          description: The target currency code
+        value:
+          type: number
+          description: The amount to convert
+      required:
+        - source_currency
+        - target_currency
+        - value
+      example:
+        source_currency: "BRL"
+        target_currency: "USD"
+        value: 100
+    ErrorInternalServer:
+      type: object
+      properties:
+        error:
+          type: string
+          description: The Internal Server Error message
+      required:
+        - error
+      example:
+        error: "Internal Server Error"
+    ErrorBadRequest:
+      type: object
+      properties:
+        error:
+          type: string
+          description: The Bad Request Error message
+      required:
+        - error
+      example:
+        error: "Bad Request"
+    Message:
+      type: object
+      properties:
+        message:
+          type: string
+          description: The message
+      required:
+        - message
+      example:
+        message: Operation successful
