@@ -13,13 +13,14 @@ Before using this Makefile, make sure you have the following dependencies instal
 ### Set Environment Variables
 
 Before running the service, ensure that the necessary environment variables are set. These can be configured in the Makefile or directly in your shell.
-
+```
 export FLASK_APP=src/app/app.py
 export FLASK_ENV=development
 export FLASK_DEBUG=1
 export FLASK_PORT=8082
 export PYTHONPATH=$(shell pwd)
 export JWT_SECRET=CREATE_RANDOM_SECRET_KEY
+```
 
 ### Available Commands
 
