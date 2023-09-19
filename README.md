@@ -36,6 +36,8 @@ export JWT_SECRET=CREATE_RANDOM_SECRET_KEY
 
 - make db-migrate: Apply database migrations (assuming a SQL migration file is available at src/infra/db/database/migration.sql).
 
+- make create_network: Create the Docker Network "my_network"
+
 ## Docker Image and Container Naming
 
 - Docker Image Name: wallet_user_identity_service_image

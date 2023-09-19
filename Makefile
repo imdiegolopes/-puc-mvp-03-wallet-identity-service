@@ -8,6 +8,7 @@ export FLASK_DEBUG=1
 export FLASK_PORT=8082
 export PYTHONPATH=$(shell pwd)
 export JWT_SECRET=CREATE_RANDOM_SECRET_KEY
+export NETWORK_NAME=my_network
 
 start:
 	flask run --port=$(FLASK_PORT) --host=0.0.0.0
@@ -21,7 +22,7 @@ build:
 
 # Run the Docker container
 run:
-	docker run -d -p $(FLASK_PORT):$(FLASK_PORT) --name $(DOCKER_CONTAINER_NAME) $(DOCKER_IMAGE_NAME)
+	docker run -d -p $(FLASK_PORT):$(FLASK_PORT) --network=my_network --name $(DOCKER_CONTAINER_NAME) $(DOCKER_IMAGE_NAME)
 
 # Stop and remove the Docker container
 stop:
@@ -30,4 +31,7 @@ stop:
 
 db-migrate:
 	cat src/infra/db/database/migration.sql | sqlite3 src/infra/db/database/database.db
+
+create_network:
+	docker network create $(NETWORK_NAME);
 
