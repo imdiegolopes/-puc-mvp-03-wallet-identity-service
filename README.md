@@ -41,6 +41,10 @@ export JWT_SECRET=CREATE_RANDOM_SECRET_KEY
 
 - Docker Container Name: wallet_user_identity_service_container
 
+## API Design Documentation
+
+The Swagger file for this service is located at `docs/open_api/swagger.yaml`. It contains the API documentation and can be used with tools like Swagger UI to interact with the service.
+
 ## Additional Notes
 
 - Remember to replace CREATE_RANDOM_SECRET_KEY with your actual JWT secret key.
