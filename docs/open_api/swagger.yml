@@ -39,6 +39,8 @@ paths:
           description: Bad request
         '401':
           description: Unauthorized
+      tags:
+        - login
 
   /v1/register:
     post:
@@ -73,6 +75,8 @@ paths:
         '500':
           description: Internal server error
 
+      tags:
+        - register 
   /v1/token/validate:
     post:
       summary: Validate access token
@@ -83,6 +87,8 @@ paths:
           description: Token is valid
         '401':
           description: Unauthorized
+      tags:
+        - token 
 
 components:
   securitySchemes:
