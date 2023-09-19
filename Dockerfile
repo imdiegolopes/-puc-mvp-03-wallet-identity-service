@@ -1,6 +1,11 @@
 # Use an official Python runtime as a parent image
 FROM python:3.8-slim
 
+# Install make (or any other necessary dependencies)
+RUN apt-get update && \
+    apt-get install -y make && \
+    rm -rf /var/lib/apt/lists/*
+
 # Set the working directory to /app
 WORKDIR /app
 
@@ -13,5 +18,5 @@ RUN pip install -r requirements.txt
 # Make port available to the world outside this container
 EXPOSE 8082
 
-# Run app.py when the container launches
-CMD ["python", "src/app/app.py"]
+CMD ["make", "start"]
+

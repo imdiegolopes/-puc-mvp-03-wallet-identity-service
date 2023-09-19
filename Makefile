@@ -5,10 +5,12 @@ DOCKER_CONTAINER_NAME = wallet_user_identity_service_container
 export FLASK_APP=src/app/app.py
 export FLASK_ENV=development
 export FLASK_DEBUG=1
+export FLASK_PORT=8082
 export PYTHONPATH=$(shell pwd)
+export JWT_SECRET=CREATE_RANDOM_SECRET_KEY
 
-dev:
-	flask run --port=8082 
+start:
+	flask run --port=$(FLASK_PORT) --host=0.0.0.0
 
 clean:
 	rm -rf __pycache__/
@@ -19,7 +21,7 @@ build:
 
 # Run the Docker container
 run:
-	docker run -d -p 8082:8082 --name $(DOCKER_CONTAINER_NAME) $(DOCKER_IMAGE_NAME)
+	docker run -d -p $(FLASK_PORT):$(FLASK_PORT) --name $(DOCKER_CONTAINER_NAME) $(DOCKER_IMAGE_NAME)
 
 # Stop and remove the Docker container
 stop:

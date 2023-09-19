@@ -6,10 +6,12 @@ from flask import (
 import hashlib
 
 import jwt
+import os
 from datetime import datetime, timedelta
 
-# Define a secret key for signing the token
-SECRET_KEY = 'your_secret_key_here'
+
+# Get the value of the JWT_SECRET environment variable
+SECRET_KEY = str(os.getenv('JWT_SECRET'))
 
 from src.infra.db.repositories.useridentity_repository import UserIdentityRepository
 
