@@ -1,68 +1,46 @@
-# Wallet Exchange Rate Service API
+# Wallet User Identity Service Makefile
 
-This repository contains the code for the Wallet Exchange Rate Service API. This microservice provides exchange rates between currencies using the ExchangeRate API.
+This Makefile provides a set of commands to help with building, running, and managing the Wallet User Identity Service.
 
-## Installation
+## Prerequisites
 
-### Define variables
+Before using this Makefile, make sure you have the following dependencies installed:
 
-In the `Makefile`, you'll find the following variables:
+- Docker
 
-```make
-DOCKER_IMAGE_NAME = wallet_exchange_rate_service_api 
-DOCKER_CONTAINER_NAME = wallet_exchange_rate_service_container
-```
+## Usage
 
-### Building the Docker Image
-To build the Docker image, run the following command:
+### Set Environment Variables
 
-```bash
-make build
-```
+Before running the service, ensure that the necessary environment variables are set. These can be configured in the Makefile or directly in your shell.
 
-This will create a Docker image named wallet_exchange_rate_service_api.
+export FLASK_APP=src/app/app.py
+export FLASK_ENV=development
+export FLASK_DEBUG=1
+export FLASK_PORT=8082
+export PYTHONPATH=$(shell pwd)
+export JWT_SECRET=CREATE_RANDOM_SECRET_KEY
 
-### Running the Docker Container
-To run the Docker container, use the command:
+### Available Commands
 
-```bash
-make run
-```
-This command starts the container in detached mode, mapping port 5005 on your host machine to port 5003 in the container. The container will be named wallet_exchange_rate_service_container.
+- make start: Run the Flask application in development mode.
 
-### Run the Database Migration
+- make clean: Clean up any cached files (e.g., __pycache__).
 
-```bash
-make db-migrate
-```
+- make build: Build the Docker image for the service.
 
-This command will create the initial tables into the application. You don't need to run this script unless you want to change the default tables!
+- make run: Run the Docker container using the built image.
 
-Make sure you have sqlite3 installed on your system before running these commands.
+- make stop: Stop and remove the running Docker container.
 
-### Stopping and Removing the Docker Container
-To stop and remove the Docker container, execute:
+- make db-migrate: Apply database migrations (assuming a SQL migration file is available at src/infra/db/database/migration.sql).
 
-```bash
-make stop
-```
-This command stops and removes the container named wallet_exchange_rate_service_container.
+## Docker Image and Container Naming
 
-Make sure you have Docker installed on your system before running these commands.
+- Docker Image Name: wallet_user_identity_service_image
 
-## API Documentation
+- Docker Container Name: wallet_user_identity_service_container
 
-This project provides API documentation in the form of a Swagger YAML file. You can view the API documentation by following these steps:
+## Additional Notes
 
-1. Navigate to the `docs/open_api` directory in your project.
-2. Locate the file named `swagger.yml`.
-3. Open the swagger.yml file using a text editor or a Swagger viewer tool.
-4. Go through the documentation and be happy! :)
-
-## Integration to ExpressRate API 
-
-ExpressRate API is a public API available through internet that doesn't require any account creation and can be accessed (https://www.exchangerate-api.com/docs/free)[here].
-
-### License
-This project is licensed under the MIT License.
-
+- Remember to replace CREATE_RANDOM_SECRET_KEY with your actual JWT secret key.
