@@ -1,4 +1,5 @@
-from  sqlite4  import  SQLite4
+import sqlite3
+
 
 class SqliteClient:
     def __init__(self, db_file):
@@ -6,8 +7,7 @@ class SqliteClient:
         self.connection = None
 
     def connect(self):
-        database = SQLite4(self.db_file)
-        self.connection = database.connect(debug = True);
+        self.connection = sqlite3.connect(self.db_file)
 
     def disconnect(self):
         if self.connection is not None:

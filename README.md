@@ -30,6 +30,16 @@ make run
 ```
 This command starts the container in detached mode, mapping port 5005 on your host machine to port 5003 in the container. The container will be named wallet_exchange_rate_service_container.
 
+### Run the Database Migration
+
+```bash
+make db-migrate
+```
+
+This command will create the initial tables into the application. You don't need to run this script unless you want to change the default tables!
+
+Make sure you have sqlite3 installed on your system before running these commands.
+
 ### Stopping and Removing the Docker Container
 To stop and remove the Docker container, execute:
 
